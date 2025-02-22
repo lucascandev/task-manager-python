@@ -1,2 +1,4 @@
-tkinter
-tkcalendar
+customtkinter==5.1.3
+tkcalendar==1.6.1
+matplotlib==3.7.1
+sqlite3
