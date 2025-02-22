@@ -21,6 +21,16 @@ Este é um simples **Gestor de Tarefas** desenvolvido com **Python** utilizando 
 
 Essas bibliotecas podem ser instaladas via `pip`.
 
+## Visual e funcionamento do software:
+
+<p align="center">
+   <img src="https://github.com/lucascandev/task-manager-python/blob/main/assets/aplica%C3%A7%C3%A3o.png" alt="#01" width="600">
+</p>
+
+<p align="center">
+   <img src="https://github.com/lucascandev/task-manager-python/blob/main/assets/aplica%C3%A7%C3%A3o2.png" alt="#01" width="600">
+</p>
+
 ## Instalação
 
 1. **Clone o repositório**:
