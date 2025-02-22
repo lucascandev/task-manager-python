@@ -11,7 +11,6 @@ Este projeto é um **Gestor de Tarefas** com interface gráfica, criado em Pytho
 
 ## Dependências:
 - `tkinter` (Interface Gráfica)
-- `plyer` (Notificações)
 - `sqlite3` (Banco de Dados)
 
 ## Como rodar:
