@@ -1,11 +1,12 @@
 import sqlite3
+from datetime import datetime
+import json
 
 # Função para criar o banco de dados e a tabela de tarefas
 def create_db():
     conn = sqlite3.connect("tasks.db")
     cursor = conn.cursor()
     
-    # Cria a tabela de tarefas, se não existir
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS tasks (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,16 +34,12 @@ def add_task(description, due_date, priority):
     conn.close()
 
 # Função para listar todas as tarefas
-def list_tasks(offset=0, limit=10):
+def list_tasks(order_by="due_date"):
     conn = sqlite3.connect("tasks.db")
     cursor = conn.cursor()
     
-    cursor.execute("""
-    SELECT id, description, due_date, priority, status 
-    FROM tasks 
-    ORDER BY due_date ASC
-    LIMIT ? OFFSET ?
-    """, (limit, offset))
+    query = f"SELECT id, description, due_date, priority, status FROM tasks ORDER BY {order_by} ASC"
+    cursor.execute(query)
     tasks = cursor.fetchall()
     
     conn.close()
@@ -72,16 +69,17 @@ def delete_task(task_id):
     conn.commit()
     conn.close()
 
-# Função para editar uma tarefa
-def edit_task(task_id, description, due_date, priority):
+# Função para fazer backup das tarefas em JSON
+def backup_to_json():
     conn = sqlite3.connect("tasks.db")
     cursor = conn.cursor()
     
-    cursor.execute("""
-    UPDATE tasks
-    SET description = ?, due_date = ?, priority = ?
-    WHERE id = ?
-    """, (description, due_date, priority, task_id))
+    cursor.execute("SELECT id, description, due_date, priority, status FROM tasks")
+    tasks = cursor.fetchall()
     
-    conn.commit()
+    tasks_data = [{"id": task[0], "description": task[1], "due_date": task[2], "priority": task[3], "status": task[4]} for task in tasks]
+    
+    with open('tasks_backup.json', 'w') as f:
+        json.dump(tasks_data, f, indent=4)
+    
     conn.close()

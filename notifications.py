@@ -5,18 +5,22 @@ from tkinter import messagebox
 
 # Função para verificar tarefas vencidas
 def check_due_tasks_gui():
-    try:
-        tasks = list_tasks()  # Obter todas as tarefas
-        current_date = datetime.now().strftime("%d/%m/%Y")
+    while True:
+        try:
+            tasks = list_tasks()  # Obter todas as tarefas
 
-        for task in tasks:
-            task_due_date_obj = datetime.strptime(task[2], "%d/%m/%Y")
-            current_date_obj = datetime.strptime(current_date, "%d/%m/%Y")
+            current_date = datetime.now().strftime("%d/%m/%Y")
 
-            if task_due_date_obj < current_date_obj and task[4] != 'concluída':
-                messagebox.showinfo("Tarefa Vencida", f"A tarefa '{task[1]}' está vencida desde {task[2]}.")
-    except Exception as e:
-        print(f"Erro ao verificar tarefas vencidas: {e}")
+            for task in tasks:
+                task_due_date = task[2]  # A data de vencimento da tarefa
+                task_due_date_obj = datetime.strptime(task_due_date, "%d/%m/%Y")
+                current_date_obj = datetime.strptime(current_date, "%d/%m/%Y")
 
-    time.sleep(60)  # A cada 60 segundos, verifica novamente
-    check_due_tasks_gui()
+                # Se a tarefa estiver vencida e não foi concluída
+                if task_due_date_obj < current_date_obj and task[4] != 'concluída':
+                    messagebox.showinfo("Tarefa Vencida", f"A tarefa '{task[1]}' está vencida desde {task_due_date}.")
+        
+        except Exception as e:
+            print(f"Erro ao verificar tarefas vencidas: {e}")
+        
+        time.sleep(60)  # A cada 60 segundos, verifica novamente
