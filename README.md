@@ -36,6 +36,6 @@ Essas bibliotecas podem ser instaladas via `pip`.
 1. **Clone o repositório**:
 
    ```bash
-   git clone https://github.com/lucascandev/task-manager.git
+   git clone https://github.com/lucascandev/task-manager-python
    cd task-manager
    ```
